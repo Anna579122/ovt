@@ -1,29 +1,113 @@
 <!doctype html>
 <html lang="lv">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Profesiju izvēle</title>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Profesiju izvēle</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Podkova:wght@400;500;600;700;800&display=swap');
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#fff}
+body{font-family:'Podkova',Georgia,serif;color:#000}
+#stage{position:relative;width:100vw;height:100vh;height:100svh;background:#fff;overflow:hidden;touch-action:none}
+.initial{
+ position:absolute;transform:translate(-50%,-50%);
+ color:#000;text-decoration:none;font-family:'Podkova',Georgia,serif;
+ font-size:clamp(42px,5.5vw,76px);font-weight:800;line-height:1;
+ cursor:grab;user-select:none;-webkit-user-select:none;touch-action:none;
+ padding:4px 7px;white-space:nowrap;
+}
+.initial:active{cursor:grabbing}
+.initial.dragging{cursor:grabbing;z-index:10}
+.initial:focus-visible{outline:1px dashed #000;outline-offset:3px}
+@media(max-width:600px){
+ .initial{font-size:clamp(32px,8vw,52px)}
+}
+</style>
 </head>
 <body>
-  <main class="initials-page" aria-label="Profesiju izvēle">
-    <a class="initial" style="left:17%;top:16%" href="mt.html">MT</a>
-<a class="initial" style="left:42%;top:12%" href="vp.html">VP</a>
-<a class="initial" style="left:65%;top:18%" href="vd.html">VD</a>
-<a class="initial" style="left:85%;top:16%" href="id.html">ID</a>
-<a class="initial" style="left:11%;top:36%" href="mo.html">MO</a>
-<a class="initial" style="left:29%;top:38%" href="sm.html">SM</a>
-<a class="initial" style="left:52%;top:30%" href="ep.html">EP</a>
-<a class="initial" style="left:83%;top:38%" href="gd.html">GD</a>
-<a class="initial" style="left:67%;top:48%" href="mg.html">MG</a>
-<a class="initial" style="left:12%;top:66%" href="gr.html">GR</a>
-<a class="initial" style="left:29%;top:64%" href="dt.html">DT</a>
-<a class="initial" style="left:50%;top:62%" href="nd.html">ND</a>
-<a class="initial" style="left:76%;top:65%" href="av.html">AV</a>
-<a class="initial" style="left:27%;top:85%" href="et.html">ET</a>
-<a class="initial" style="left:59%;top:80%" href="jm.html">JM</a>
-<a class="initial" style="left:87%;top:82%" href="vo.html">VO</a>
-  </main>
+<main id="stage" aria-label="Profesiju iniciāļi">
+    <a class="initial" href="mt.html" data-code="MT"
+       style="left:17%;top:16%">MT</a>
+    <a class="initial" href="vp.html" data-code="VP"
+       style="left:42%;top:12%">VP</a>
+    <a class="initial" href="vd.html" data-code="VD"
+       style="left:65%;top:18%">VD</a>
+    <a class="initial" href="id.html" data-code="ID"
+       style="left:85%;top:16%">ID</a>
+    <a class="initial" href="mo.html" data-code="MO"
+       style="left:11%;top:36%">MO</a>
+    <a class="initial" href="sm.html" data-code="SM"
+       style="left:29%;top:38%">SM</a>
+    <a class="initial" href="ep.html" data-code="EP"
+       style="left:52%;top:30%">EP</a>
+    <a class="initial" href="gd.html" data-code="GD"
+       style="left:83%;top:38%">GD</a>
+    <a class="initial" href="mg.html" data-code="MG"
+       style="left:67%;top:48%">MG</a>
+    <a class="initial" href="gr.html" data-code="GR"
+       style="left:12%;top:66%">GR</a>
+    <a class="initial" href="dt.html" data-code="DT"
+       style="left:29%;top:64%">DT</a>
+    <a class="initial" href="nd.html" data-code="ND"
+       style="left:50%;top:62%">ND</a>
+    <a class="initial" href="av.html" data-code="AV"
+       style="left:76%;top:65%">AV</a>
+    <a class="initial" href="et.html" data-code="ET"
+       style="left:27%;top:85%">ET</a>
+    <a class="initial" href="jm.html" data-code="JM"
+       style="left:59%;top:80%">JM</a>
+    <a class="initial" href="vo.html" data-code="VO"
+       style="left:87%;top:82%">VO</a>
+</main>
+<script>
+const stage = document.getElementById('stage');
+let active = null;
+let moved = false;
+let startX = 0, startY = 0, originX = 0, originY = 0;
+
+document.querySelectorAll('.initial').forEach(el => {
+  el.addEventListener('pointerdown', e => {
+    if (e.button !== 0) return;
+    active = el;
+    moved = false;
+    const rect = stage.getBoundingClientRect();
+    const box = el.getBoundingClientRect();
+    startX = e.clientX;
+    startY = e.clientY;
+    originX = ((box.left + box.width/2 - rect.left) / rect.width) * 100;
+    originY = ((box.top + box.height/2 - rect.top) / rect.height) * 100;
+    el.classList.add('dragging');
+    el.setPointerCapture(e.pointerId);
+    e.preventDefault();
+  });
+  el.addEventListener('pointermove', e => {
+    if (active !== el) return;
+    const rect = stage.getBoundingClientRect();
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+    if (Math.abs(dx) + Math.abs(dy) > 4) moved = true;
+    const x = Math.max(3, Math.min(97, originX + dx / rect.width * 100));
+    const y = Math.max(5, Math.min(95, originY + dy / rect.height * 100));
+    el.style.left = x + '%';
+    el.style.top = y + '%';
+  });
+  const finish = () => {
+    if (active === el) {
+      el.classList.remove('dragging');
+      active = null;
+    }
+  };
+  el.addEventListener('pointerup', finish);
+  el.addEventListener('pointercancel', finish);
+  el.addEventListener('click', e => {
+    if (moved) {
+      e.preventDefault();
+      e.stopPropagation();
+      moved = false;
+    }
+  });
+});
+</script>
 </body>
 </html>
