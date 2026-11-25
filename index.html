@@ -1,46 +1,107 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="lv">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Iepazīsti profesiju ikdienu, mācību vidi un pieredzi.">
-  <title>Iepazīsti profesijas</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profesiju izvēle</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Podkova:wght@400;500;600;700;800&display=swap');
+    * { box-sizing: border-box; }
+    html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; }
+    body { font-family: 'Podkova', Georgia, serif; background: white; }
+    #stage {
+      position: relative; width: 100vw; height: 100vh; height: 100svh;
+      overflow: hidden;
+      /* Nomaini fons.jpg uz sava attēla precīzu faila nosaukumu */
+      background-image: url('fons.jpg');
+      background-size: cover; background-position: center; background-repeat: no-repeat;
+    }
+    .initial {
+      position: absolute; transform: translate(-50%, -50%); display: block;
+      padding: 4px 7px; color: #000;
+      font-family: 'Podkova', Georgia, serif;
+      font-size: clamp(48px, 5.5vw, 82px); font-weight: 800; line-height: 1;
+      text-decoration: none; white-space: nowrap; cursor: grab;
+      user-select: none; -webkit-user-select: none; touch-action: none;
+    }
+    .initial:active { cursor: grabbing; }
+    .initial.dragging { z-index: 10; }
+    @media (max-width: 600px) {
+      .initial { font-size: clamp(34px, 8vw, 58px); }
+    }
+  </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="brand">Profesiju viedlapa</div>
-    <div class="header-note">Iepazīsti · Izvēlies · Izmēģini</div>
-  </header>
-  <main>
-    <section class="hero">
-      <div class="eyebrow">Ielūkojies mācību ikdienā</div>
-      <h1>Iepazīsti<br>profesijas.</h1>
-      <p>Izvēlies profesiju un ieskaties tās ikdienas vidē — fotogrāfijās, piezīmēs, darba procesos un situācijās, ar kurām audzēkņi saskaras mācību laikā.</p>
-    </section>
-    <div class="section-top">
-      <h2>Izvēlies profesiju</h2>
-      <span>16 profesijas</span>
-    </div>
-    <section class="profession-grid" aria-label="Profesiju saraksts">
-      <a class="profession-card" href="mt.html" aria-label="Atvērt profesiju MT"><strong>MT</strong><small>Atvērt profesiju ↗</small></a>
-      <a class="profession-card" href="vp.html" aria-label="Atvērt profesiju VP"><strong>VP</strong><small>Atvērt profesiju ↗</small></a>
-      <a class="profession-card" href="vd.html" aria-label="Atvērt profesiju VD"><strong>VD</strong><small>Atvērt profesiju ↗</small></a>
-      <a class="profession-card" href="id.html" aria-label="Atvērt profesiju ID"><strong>ID</strong><small>Atvērt profesiju ↗</small></a>
-      <a class="profession-card" href="mo.html" aria-label="Atvērt profesiju MO"><strong>MO</strong><small>Atvērt profesiju ↗</small></a>
-      <a class="profession-card" href="sm.html" aria-label="Atvērt profesiju SM"><strong>SM</strong><small>Atvērt profesiju ↗</small></a>
-      <a class="profession-card" href="ep.html" aria-label="Atvērt profesiju EP"><strong>EP</strong><small>Atvērt profesiju ↗</small></a>
-      <a class="profession-card" href="gd.html" aria-label="Atvērt profesiju GD"><strong>GD</strong><small>Atvērt profesiju ↗</small></a>
-      <a class="profession-card" href="mg.html" aria-label="Atvērt profesiju MG"><strong>MG</strong><small>Atvērt profesiju ↗</small></a>
-      <a class="profession-card" href="gr.html" aria-label="Atvērt profesiju GR"><strong>GR</strong><small>Atvērt profesiju ↗</small></a>
-      <a class="profession-card" href="dt.html" aria-label="Atvērt profesiju DT"><strong>DT</strong><small>Atvērt profesiju ↗</small></a>
-      <a class="profession-card" href="nd.html" aria-label="Atvērt profesiju ND"><strong>ND</strong><small>Atvērt profesiju ↗</small></a>
-      <a class="profession-card" href="av.html" aria-label="Atvērt profesiju AV"><strong>AV</strong><small>Atvērt profesiju ↗</small></a>
-      <a class="profession-card" href="et.html" aria-label="Atvērt profesiju ET"><strong>ET</strong><small>Atvērt profesiju ↗</small></a>
-      <a class="profession-card" href="jm.html" aria-label="Atvērt profesiju JM"><strong>JM</strong><small>Atvērt profesiju ↗</small></a>
-      <a class="profession-card" href="vo.html" aria-label="Atvērt profesiju VO"><strong>VO</strong><small>Atvērt profesiju ↗</small></a>
-    </section>
+  <main id="stage" aria-label="Profesiju izvēle">
+      <a class="initial" href="mt.html" style="left:17%; top:16%;">MT</a>
+      <a class="initial" href="vp.html" style="left:42%; top:12%;">VP</a>
+      <a class="initial" href="vd.html" style="left:65%; top:18%;">VD</a>
+      <a class="initial" href="id.html" style="left:85%; top:16%;">ID</a>
+      <a class="initial" href="mo.html" style="left:11%; top:36%;">MO</a>
+      <a class="initial" href="sm.html" style="left:29%; top:38%;">SM</a>
+      <a class="initial" href="ep.html" style="left:52%; top:30%;">EP</a>
+      <a class="initial" href="gd.html" style="left:83%; top:38%;">GD</a>
+      <a class="initial" href="mg.html" style="left:67%; top:48%;">MG</a>
+      <a class="initial" href="gr.html" style="left:12%; top:66%;">GR</a>
+      <a class="initial" href="dt.html" style="left:29%; top:64%;">DT</a>
+      <a class="initial" href="nd.html" style="left:50%; top:62%;">ND</a>
+      <a class="initial" href="av.html" style="left:76%; top:65%;">AV</a>
+      <a class="initial" href="et.html" style="left:27%; top:85%;">ET</a>
+      <a class="initial" href="jm.html" style="left:59%; top:80%;">JM</a>
+      <a class="initial" href="vo.html" style="left:87%; top:82%;">VO</a>
   </main>
-  <footer class="site-footer">Profesiju viedlapa · Izveidota, lai iepazītu mācību ikdienu</footer>
+  <script>
+    const stage = document.getElementById('stage');
+    let activeItem = null;
+    let pointerStartX = 0, pointerStartY = 0;
+    let itemStartX = 0, itemStartY = 0;
+    let wasDragged = false;
+
+    document.querySelectorAll('.initial').forEach(item => {
+      item.addEventListener('pointerdown', event => {
+        if (event.button !== 0) return;
+        activeItem = item;
+        wasDragged = false;
+        const stageRect = stage.getBoundingClientRect();
+        const itemRect = item.getBoundingClientRect();
+        pointerStartX = event.clientX;
+        pointerStartY = event.clientY;
+        itemStartX = ((itemRect.left + itemRect.width / 2 - stageRect.left) / stageRect.width) * 100;
+        itemStartY = ((itemRect.top + itemRect.height / 2 - stageRect.top) / stageRect.height) * 100;
+        item.classList.add('dragging');
+        item.setPointerCapture(event.pointerId);
+        event.preventDefault();
+      });
+
+      item.addEventListener('pointermove', event => {
+        if (activeItem !== item) return;
+        const dx = event.clientX - pointerStartX;
+        const dy = event.clientY - pointerStartY;
+        if (Math.abs(dx) + Math.abs(dy) > 5) wasDragged = true;
+        if (wasDragged) {
+          const rect = stage.getBoundingClientRect();
+          const x = Math.max(2, Math.min(98, itemStartX + dx / rect.width * 100));
+          const y = Math.max(4, Math.min(96, itemStartY + dy / rect.height * 100));
+          item.style.left = x + '%';
+          item.style.top = y + '%';
+        }
+      });
+
+      function finishDrag() {
+        if (activeItem) {
+          activeItem.classList.remove('dragging');
+          activeItem = null;
+        }
+      }
+      item.addEventListener('pointerup', finishDrag);
+      item.addEventListener('pointercancel', finishDrag);
+      item.addEventListener('click', event => {
+        if (wasDragged) {
+          event.preventDefault();
+          wasDragged = false;
+        }
+      });
+    });
+  </script>
 </body>
 </html>
